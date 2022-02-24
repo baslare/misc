@@ -10,8 +10,8 @@ import pandas as pd
 
 
 os.getcwd()
-dt = pd.read_stata("../data/mainAnalysis_AEJ.dta")
-cm = pd.read_stata("../data/communication_sic_nclass0.dta")
+dt = pd.read_stata("watzinger_etal/Kit_WNFS//data/mainAnalysis_AEJ.dta")
+cm = pd.read_stata("watzinger_etal/Kit_WNFS//data/communication_sic_nclass0.dta")
 
 
 dt = dt[~((dt["m"] == 0) & (dt["m1"] == 0))]
