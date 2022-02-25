@@ -75,7 +75,7 @@ dt_long["treatment"] = [int(x) for x in (dt_long["year"] > 1955) ]
 
 dt_long["tre_x_cd"] = dt_long["treatment"]*dt_long["cd"]
 
-number_treated = sum(dt_long["cd"][dt_long["cd"] == 1])
+
 
 #### diff-in-diff
 #the dependent variable has some missing values,
@@ -92,5 +92,13 @@ print(results_2.summary())
 y_summ = dt_long["cites_in_y"].describe()
 
 
+#Table 2
+#   r1 = results[0]
+#   r = 2a
+#   r2:r6 = results[1:5]
+
+#Table 3
+#   r4 = results[3]
+#   r7:10 = results[6:9]
 
 
