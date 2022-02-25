@@ -61,6 +61,9 @@ match_weight = robjects.globalenv["match_weights"]
 dt_wide["cem_matched"] = match_weight
 dt_wide_cem = dt_wide[dt_wide["cem_matched"] != 0]
 
+
+no_treated_1 = len(dt_wide_cem[dt_wide_cem["cd"] == 1]["pre_cd_cit"])
+
 #### melt it back
 
 dt_wide_cem.reset_index(inplace=True,drop=True)
@@ -71,6 +74,8 @@ dt_long = pd.wide_to_long(dt_wide_cem,"cites_in_y",i=["pat_publn_id","cd","publn
 dt_long["treatment"] = [int(x) for x in (dt_long["year"] > 1955) ]
 
 dt_long["tre_x_cd"] = dt_long["treatment"]*dt_long["cd"]
+
+number_treated = sum(dt_long["cd"][dt_long["cd"] == 1])
 
 #### diff-in-diff
 #the dependent variable has some missing values,
@@ -84,5 +89,8 @@ results_2 = model.fit(method="pinv", cov_type="HC3")
 print(results_.summary())
 print(results_2.summary())
 
+y_summ = dt_long["cites_in_y"].describe()
 
-###
+
+
+
