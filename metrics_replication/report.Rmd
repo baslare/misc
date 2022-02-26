@@ -1,0 +1,152 @@
+---
+title: "Report"
+author: "Efe Baslar, Ling Ki Wong"
+date: '2022-02-26'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# There's a heading!
+let us test the pdf knit
+
+text here
+text here
+text here
+text here
+```{r setup, include=FALSE}
+
+require(reticulate)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(engine.path = list(
+python = 'C:/Users/Efe/anaconda3/python.exe'))
+use_condaenv(condaenv = "anaconda3")
+
+```
+
+
+```{python,message = FALSE, echo = FALSE, warning=FALSE}
+
+import os
+import pandas as pd
+
+dt_main = pd.read_stata("watzinger_etal/Kit_WNFS//data/mainAnalysis_AEJ.dta")
+cm = pd.read_stata("watzinger_etal/Kit_WNFS//data/communication_sic_nclass0.dta")
+```
+
+
+```{python table1, message = FALSE, echo = FALSE, warning=FALSE}
+dt = dt_main[~((dt_main["m"] == 0) & (dt_main["m1"] == 0))]
+
+dt = dt[~(dt["publn_y"]<1940)]
+
+dt["xi"].iloc[(dt["Kogan_xi"]>0) & (dt["xi"] == 0)] = None
+
+chars = ["total_cites_in_y", "self_cites", "cites_in_y", "cites_in_y_New", "cites_in_y_Young", "cites_in_y_Old", "cites_in_y_size_10", "cites_in_y_Large"]
+group_dict = {x: "sum" for x in chars}
+group_dict_2 = {"pre_cd_cit":"mean","xi":"mean","Kogan_xi":"mean"}
+
+
+                    
+group_dict.update(group_dict_2)
+group_by_vars = ["cd", "pat_publn_id","appln_y","publn_y","belllabs","western","teletype","att", "bellsystem"]
+
+dt_grouped = dt.groupby(group_by_vars,as_index=False).agg(group_dict)
+dt_grouped.drop_duplicates(subset=["pat_publn_id"],inplace=True)
+dt_grouped["patentProtected"] = 17-(1956-dt_grouped["publn_y"]) # 1940 vs 1956
+
+
+chars2 = ["appln_y","publn_y","patentProtected","total_cites_in_y","cites_in_y","self_cites","pre_cd_cit"]    
+group_dict_summary = {x: "mean" for x in chars2}
+
+
+stats1 = dt_grouped[dt_grouped["cd"] == 1].agg(group_dict_summary) #6685 (5)
+stats1b = dt_grouped[dt_grouped["cd"] == 0].agg(group_dict_summary)  #172464 (1)
+
+
+###
+
+dt = dt[(dt["publn_y"]<1949)]
+
+dt_grouped2 = dt.groupby(group_by_vars,as_index=False).agg(group_dict)
+dt_grouped2.drop_duplicates(subset=["pat_publn_id"],inplace=True)
+dt_grouped2["patentProtected"] = 17-(1956-dt_grouped2["publn_y"]) # 1940 vs 1956
+
+stats2 = dt_grouped2[dt_grouped2["cd"] == 1].agg(group_dict_summary) #3371 (6)
+stats2b = dt_grouped2[dt_grouped2["cd"] == 0].agg(group_dict_summary)  #75739 (2)
+
+
+###
+
+dt = dt.merge(cm,how="left",on="nclass0")
+dt["impact"] = dt["impact_y"] > 15
+group_by_vars.append("impact")
+
+dt_grouped3 = dt.groupby(group_by_vars,as_index=False).agg(group_dict)
+dt_grouped3.drop_duplicates(subset=["pat_publn_id"],inplace=True)
+dt_grouped3["patentProtected"] = 17-(1956-dt_grouped3["publn_y"]) # 1940 vs 1956
+
+stats3 = dt_grouped3[(dt_grouped3["cd"] == 1) & (dt_grouped3["impact"] == 0)].agg(group_dict_summary) #2650 (8)
+stats4 = dt_grouped3[(dt_grouped3["cd"] == 1) & (dt_grouped3["impact"] == 1)].agg(group_dict_summary)  #1121 (7)
+stats3b = dt_grouped3[(dt_grouped3["cd"] == 0) & (dt_grouped3["impact"] == 0)].agg(group_dict_summary) #70619 (4)
+stats4b = dt_grouped3[(dt_grouped3["cd"] == 0) & (dt_grouped3["impact"] == 1)].agg(group_dict_summary)  #5120 (3) 
+
+```
+
+
+```{r,message = FALSE, echo = FALSE, warning=FALSE}
+tb1 <- py$stats1 #(5)
+tb1b <- py$stats1b #(1)
+tb2 <- py$stats2 #(6)
+tb2b <- py$stats2b #(2)
+tb3 <-py$stats3 #(8)
+tb3b <-py$stats3b #7
+tb4 <-py$stats4 #4
+tb4b <-py$stats4b #3
+```
+
+
+# Table 1
+
+text here
+```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
+require(tidyverse)
+require(stargazer)
+
+table_1_df <- as_tibble(list(tb1b,tb2b,tb4b,tb3b,tb1,tb2,tb4,tb3),.name_repair = "universal")
+table_1_df <- apply(table_1_df,MARGIN = 2, unname)
+rownames(table_1_df) <- c("Filing year","Publication year","# yrs. in patent protection after 1956","Total Cites","Citations by others","Self-citatons","Cts. by others b. 1949")
+colnames(table_1_df) <- paste0("(",colnames(table_1_df) %>% str_remove_all("[.]+"),")")
+
+stargazer(table_1_df %>% format(round(., 1), digits=1,scientific=FALSE),summary = FALSE,rownames = TRUE,font.size ="scriptsize",header = FALSE)
+```
+# Table 2
+
+text here
+```{r table2,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
+txt <- read_file("table_2_latex.txt")
+
+txt <- txt %>% str_replace("\\\\centering\\\r\\\n ","\\\\centering\\\r\\\n \\\\scriptsize\\\r\\\n ")
+writeLines(txt)
+
+```
+# Table 3
+
+text here
+```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
+txt2 <- read_file("table_3_latex.txt")
+
+txt2 <- txt2 %>% str_replace("\\\\centering\\\r\\\n ","\\\\centering\\\r\\\n \\\\scriptsize\\\r\\\n ")
+writeLines(txt2)
+```
+# Table 4
+
+text here
+```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
+source("watzinger_etal_table4.R")
+```
+
+
+
+
