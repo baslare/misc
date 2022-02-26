@@ -13,7 +13,8 @@ import pandas as pd
 import os
 import statsmodels.formula.api as sm 
 import re
-
+import pickle
+from stargazer.stargazer import Stargazer
 
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
@@ -153,4 +154,36 @@ dep_vars = ["cites_in_y", "c_4_total",  "c_4_ys", "c_0_total", "cites_in_y_w_Kog
 models_list = [sm.wls(formula=f"{y}~ cd + treatment + tre_x_cd",data=dtb_long_sub,weights=dtb_long_sub["cem_matched"]) for y in dep_vars]
 cluster_list = [x.fit(method="pinv", cov_type="cluster",cov_kwds={"groups":dtb_long_sub["nclass0"]}) for x in models_list]
 
+#### collect the results object from part a
+#### render the tables in latex,
 
+with open("results_r.pickle","rb") as p:
+    results_a = pickle.load(p,encoding="latin1")
+    
+    
+st_obj = Stargazer([cluster_list[0],results_a] + cluster_list[1:6])
+st_obj.append_notes(False)
+st_obj.show_f_statistic = False
+st_obj.show_residual_std_err = False
+st_obj.covariate_order(["cd","treatment","tre_x_cd","Intercept"])
+st_obj.custom_columns(["Baseline","<=1956","All","young-small","All","dollar-weighted","young-small"],[1,1,1,1,1,1,1])
+st_obj.rename_covariates({"cd":"Bell","treatment":"Post","tre_x_cd":"Bell x post"})
+st_obj.title("(1)-(4): Telecommunication related, (5)-(7) Other fields")
+
+
+
+with open("table_2_latex.txt","w") as t2:
+    t2.write(st_obj.render_latex())
+    
+
+st_obj_2 = Stargazer([cluster_list[3]] + cluster_list[6:10])
+st_obj_2.append_notes(False)
+st_obj_2.show_f_statistic = False
+st_obj_2.show_residual_std_err = False
+st_obj_2.covariate_order(["cd","treatment","tre_x_cd","Intercept"])
+st_obj_2.custom_columns(["all other","high","low","high","low"],[1,1,1,1,1])
+st_obj_2.rename_covariates({"cd":"Bell","treatment":"Post","tre_x_cd":"Bell x post"})
+st_obj_2.title("(2-3): all market concentration, (4)-(5) young and small concentration")
+
+with open("table_3_latex.txt","w") as t3:
+    t3.write(st_obj_2.render_latex())

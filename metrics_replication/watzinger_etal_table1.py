@@ -72,6 +72,4 @@ stats4b = dt_grouped3[(dt_grouped3["cd"] == 0) & (dt_grouped3["impact"] == 1)].a
 
 
 
-
-5 + 1
-
+#%%

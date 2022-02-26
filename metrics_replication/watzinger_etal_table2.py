@@ -9,11 +9,14 @@ import pandas as pd
 import os
 import statsmodels.formula.api as sm 
 import re
+import pickle
+from stargazer.stargazer import Stargazer
 
 
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 from rpy2.robjects import pandas2ri
+
 
 
 
@@ -82,14 +85,15 @@ dt_long["tre_x_cd"] = dt_long["treatment"]*dt_long["cd"]
 #the clustered error function doesnt handle it well
 #so, we need to slice the df first
 
-dt_long_sub = dt_long[dt_long["cites_in_y"].isna()]
-model = sm.wls(formula="cites_in_y ~ cd + treatment + tre_x_cd",data=dt_long_sub,weights=dt_long_sub["cem_matched"])
-results_ = model.fit(method="pinv", cov_type="cluster",cov_kwds={"groups":dt_long_sub["nclass0"]})
-results_2 = model.fit(method="pinv", cov_type="HC3")
-print(results_.summary())
-print(results_2.summary())
+dt_long_sub = dt_long[~dt_long["cites_in_y"].isna()]
+model_r = sm.wls(formula="cites_in_y ~ cd + treatment + tre_x_cd",data=dt_long_sub,weights=dt_long_sub["cem_matched"])
+results_r = model_r.fit(method="pinv", cov_type="cluster",cov_kwds={"groups":dt_long_sub["nclass0"]})
+results_2 = model_r.fit(method="pinv", cov_type="HC3")
 
-y_summ = dt_long["cites_in_y"].describe()
+
+
+with open("results_r.pickle","wb") as p:
+    pickle.dump(results_r,p,protocol=pickle.HIGHEST_PROTOCOL)
 
 
 #Table 2

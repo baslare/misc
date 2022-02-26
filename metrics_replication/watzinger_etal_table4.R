@@ -70,7 +70,7 @@ model_3 <- lfe::felm(count_patents~appln_y+post+treated+treated_post| class | 0 
 model_4 <- lfe::felm(count_patents~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15 & m_t == 0))
 model_5 <- lfe::felm(count_patents~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15 & m_t == 0 & Conc_8 == 1))
 model_6 <- lfe::felm(count_patents~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15 & m_t == 0 & Conc_8 == 0))
-model_7 <- lfe::felm(young_small~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15))
+model_7 <- lfe::felm(young_small~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15& m_t == 0))
 model_8 <- lfe::felm(count_other~appln_y+post+treated+treated_post| class | 0 | class,data = main_data %>% filter(impact < 15& m_t == 0))
 
-
+stargazer::stargazer(model_1,model_2,model_3,model_4,model_5,model_6,model_7,model_8,font.size = "scriptsize",omit = 1:23,omit.stat = c("f","ser"),header = FALSE)
