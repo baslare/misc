@@ -7,6 +7,7 @@ Created on Thu Feb 24 14:32:46 2022
 
 import os
 import pandas as pd
+import pickle
 
 
 os.getcwd()
@@ -69,6 +70,18 @@ stats3 = dt_grouped3[(dt_grouped3["cd"] == 1) & (dt_grouped3["impact"] == 0)].ag
 stats4 = dt_grouped3[(dt_grouped3["cd"] == 1) & (dt_grouped3["impact"] == 1)].agg(group_dict_summary)  #1121 (7)
 stats3b = dt_grouped3[(dt_grouped3["cd"] == 0) & (dt_grouped3["impact"] == 0)].agg(group_dict_summary) #70619 (4)
 stats4b = dt_grouped3[(dt_grouped3["cd"] == 0) & (dt_grouped3["impact"] == 1)].agg(group_dict_summary)  #5120 (3) 
+
+stats_df = pd.DataFrame({1:stats1b,
+                         2:stats2b,
+                         3:stats4b,
+                         4:stats3b,
+                         5:stats1,
+                         6:stats2,
+                         7:stats4,
+                         8:stats3})
+
+with open("table_1.pickle","wb") as p:
+    pickle.dump(stats_df,p,protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
