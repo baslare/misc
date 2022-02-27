@@ -1,6 +1,9 @@
 ---
-title: 'Report #2'
-author: "Efe Baslar, Ling Ki Wong"
+title: 'Conveniently Upset: Avoiding Altruism by Distorting Beliefs about Others’ Altruism'
+subtitle: "Replication Report"
+author: 
+  - "Efe Baslar"
+  - "Ling Ki Wong"
 date: '2022-02-27'
 output: pdf_document
 ---
@@ -29,7 +32,67 @@ forced_seller    = read_dta("conveniently_upset/forced_seller.dta")
 ```
 
 
-# Plot 1a - Plot1b
+# Summary of the paper
+This study looks at how individuals manage their beliefs in a situation when they have the incentives to act selfishly. The authors designed a corruption game (“Basic Game”) to test the hypothesis that individuals’ beliefs about others are affected by their own desire to be selfish. Robustness of the results were tested under the modified version of the Corruption Game (“Modified Game”). To examine that distortion of beliefs about others is caused by a person’s desire to be selfish yet to look fair, a “Forced Allocator Game”, which serves as a falsification test to the Modified Game. Lastly, a “Forced Seller Game” was used to test the second hypothesis, which states that performing selfish actions or not depends on people’s ability to manipulate their beliefs about others. 
+
+## Background  
+
+The investigation is established on the long-agreed theoretical background that people in general want to think they’re fair / to be perceived as fair. Based on the literature stream about reciprocal fairness, people form beliefs about others’ altruism and then respond reciprocally. However, beliefs are subject to self-serving bias and can be distorted easily. 
+    
+Discrepancy between selfish actions and the wish to look fair creates cognitive dissonance, which is commonly considered a disutility for the individual in the field of behavioral economics. Assuming that people are always utility-maximizers, given that they have already performed selfish actions, one way to reduce the cognitive dissonance is to convince themselves that they were acting reciprocally and were, therefore, being fair. In other words, people would engage in self-deception and start to believe that others are not altruistic, thus their selfish behaviors are justified and are in accordance with reciprocal fairness. 
+    
+The hypotheses tested in the paper are as follows:
+  - H1: Beliefs about others are affected by people’s own desire to be selfish.
+  - H2: Selfish actions depend on people’s ability to manipulate their beliefs about others.
+
+## Experiment design & Measurement 
+
+Across all games, the main subjects of interest are allocators’ behavior and their beliefs about the altruism level of their partner recipient. Specifically, selfishness is measured as the number of tokens taken by the allocators (“tokens taken”). Beliefs are elicited by the allocators in a questionnaire, which asked whether they think the partner seller chooses the corruption option (explained below; recorded under the binary variable “is_corrupt”), and their opinions on the share of all sellers choosing the corruption option (under the categorical variable “%-corrupt”). 
+
+The authors started with a corruption game, which is essentially a dictator game modified in a way that recipients now can accept a side payment in exchange for accepting a reduction in the overall size of the pie (corruption option). At the beginning of the game, all participants were asked to complete 5 simple tasks and earned 10 tokens in total^[The tokens were given to the participants regardless of the quality of their work. The 5 tasks were included to simulate real-life scenarios that people need to earn their payoffs. This creates the incentive to act selfishly. ]. Participants were then paired randomly, and one player from each pair was selected at random as the allocator. All tokens from both players were now pooled together. Next, the allocator needs to decide how he wants to allocate the 20 tokens. The recipient (referred as seller in the rest of the report), on the other hand, needs to choose between: (1) selling each token at a price of AR\$2, and (2) selling each token at a price of AR\$1 and receive a lump-sum side payment only to himself (i.e. the corruption option). Decisions from both sides are made simultaneously.
+
+Allocators are put into two different treatment groups, Able=8 (meaning that allocator can take up to 8 tokens from, or given to, the seller) and Able=2. The rationale is that in treatment Able=8, an allocator is allowed to take more tokens. If she indeed takes more, and she cares about her image, she is expected to engage in self-deception. An additional feature of the design is that allocators know the game instructions given to the seller, including the information that the seller is blind about the fact that allocators can only move up to a certain number of tokens. With such a design, allocators should expect that sellers would expect allocators to take all 10 tokens away, therefore anticipate that sellers have the incentive to act selfishly. Facing a non-altruistic seller, allocators are incentivized to act selfishly in response.
+
+The other three games are designed to study the boundaries of the main effect. The authors used Modified Game to check for the robustness of the main effect. The Modified Game is designed largely the same as the Basic Game with a few modifications: First, both allocators and sellers know the instructions given to the other party as well, thus allocators can no longer interpret sellers’ intentions. Second, “low price - side payment” is no longer the profitable option for the seller. Third, instead of making allocation decisions then eliciting both beliefs, the order of belief elicitation is now “eliciting Is_corrupt belief, making allocation decision, then eliciting %_corrupt belief”. The Forced Allocator Game is almost the same as the Modified Game, except that the allocation decisions are made by the computer. The Forced Seller Game is also almost the same as the Modified Game, except that a computer would make the selling decision on behalf of the seller. 
+
+The experiments took place in two different private universities in Argentina. Participants in the Basic Game are 60 students of different majors with high socioeconomic class (therefore 30 allocators, and 15 in each treatment). In the other three games, subjects are limited to Business and Economics students who come from ordinary families.
+
+## Results & Conclusion 
+
+To analyze the treatment effect on the tokens taken, is_corrupt and %_corrupt in both Basic Game and Modified Game, the authors used OLS regression. Control variables include: gender, age, and socioeconomic class. The estimated coefficient represents the relative effect of Able=8 (versus Able=2) on the three variables of interest. The differences in mean are statistically significant for both tokens taken and Is_corrupt, with or without control variables in both games. However, %_corrupt lost its statistical significance when control variables were added in the Basic Game. 
+
+To quantify the extent of belief distortion due to selfish behavior, 2SLS regression was employed. In the instrumental variable regression, the dependent variable is the belief about the seller (Is_corrupt, %_corrupt), the endogenous variable is tokens taken, and the instrument variable is the treatment dummy. In both games, differences in mean for both beliefs are statistically significant, with or without control. Together with the OLS results, the authors concluded that people indeed distort their beliefs (via self-serving bias) about others when they are given the opportunity to act selfishly and need to deceive themselves accordingly. 
+    
+By simply comparing the means in both beliefs across treatments, authors found supporting evidence from the Forced Allocator Game that removing the need for self-deception removes self-serving bias. They also conclude from the findings in Forced Seller Game that the ability to engage in self-deception, which increases as the ambiguity of the sellers’ altruism increases, encourages allocators’ selfish actions. Therefore, both H1 and H2 cannot be rejected.
+
+# Challenges in data
+
+Data, collected from experiments, has been cleaned and processed before being made publicly available by the authors. We were therefore not involved in the exploratory data analysis, data cleaning nor feature engineering stages. Nevertheless, we identified the following possible challenges regarding the data used in this paper: 
+The first and foremost challenge is that the data collection process can be time-consuming and costly. For data collected from the games to be valid, how to design experiments so that researchers can collect the right data without possibly contaminating the data is important. 
+    
+  - Data collection process can be time-consuming and costly: Experiment design, finding the suitable subject pool.
+  - The usual caveats regarding experimenter demand effects and selection biases. 
+  - Very small sample size compared to the usual empirical work, although it is common in the field of behavioral economics.
+
+
+# Challenges in inference 
+    
+One common difficulty in studying self-serving bias empirically is reverse causality: people tend to act selfishly to those whom they already believe are selfish, i.e. people act to an already-existed belief. In this paper, reverse causality occurs when the allocators form the belief that sellers will choose the corruption option before they make the allocation decision. This means that the elicited beliefs about the seller are not subject to self-serving bias; they’re the allocator’s original beliefs instead. The authors described several measures employed to tackle the potential reverse causality. First, they used a blind design so that no subject could match the behavior to anyone they saw in the lab. Anonymity was emphasized throughout the experiments. Besides, a large reward for an accurate guess on %_corrupt was offered to induce truthful beliefs. However, we consider that reverse causality is not well-tackled by the aforementioned measures. One possible scenario is that an allocator forms her beliefs about the seller at the time she learns about the instructions of the game. Should this happen, the causal effects found in the study are largely weakened.
+    
+Attention should also be given when interpreting the relative treatment effect exhibited in Table 4. Using the difference in %_corrupt between Able=8 and Able=2 (the baseline treatment) to estimate cognitive dissonance is based on the assumption that participants in Able=2 treatment did not experience cognitive dissonance. In reality, however, subjects in the baseline treatment likely also experienced cognitive dissonance. As a result, the estimates should be interpreted as a lower bound of the magnitude of the self-serving bias. 
+
+Furthermore, we question the validity of using test/regression for comparing means. Essentially, it is just to calculate the difference in Table 3. Given the small sample size, we suspect it is capable of generating any statistically meaningful insights.. The sample size concern becomes even further exacerbated when it is utilized in a regression context. All the regressions used in the paper feature a very little number of observations, which raises the question whether it is necessary at all to use them. On top of that, the addition of controls reduces the available degrees of freedom.
+
+Lastly, we also examined if the choice of standard errors is appropriate. Even though it was not explicitly specified in the paper, during our replication we tested to find out which type of  HC standard errors were used by the authors. Among H0 through H3, we found that it was possibly the H3 standard errors that were used in the paper. 
+
+
+
+# Replicated Tables/Figures
+
+## Plot 1a - Plot2b
+
+The first set of plots visualize the distribution of the experimentee behavior in the basic game. We were not able to find the reason why some observations came out as 1 when they were found to be 0 in the paper. 
+This is valid for the two following sets of plots.
 
 ```{r plot1a1b, message = FALSE, echo = FALSE, warning=FALSE}
 fig1a <- basic_game %>%
@@ -42,7 +105,7 @@ plot1a <- ggplot(fig1a, aes(x = factor(tokenstaken), y = freq, fill = factor(tre
   theme_bw() + 
   scale_fill_brewer(labels = c("Able=2", "Able=8")) +
   labs(x = "", y = "Frequency", 
-       title = "Panel A. Tokens taken by the allocator", 
+       title = "Panel A. Tokens taken\n by the allocator", 
        fill = "") +
   scale_x_discrete(drop=FALSE)
 
@@ -61,7 +124,7 @@ plot1b <- ggplot(fig1b, aes(x = factor(perc_corrupt), y = freq, fill = factor(tr
   theme_bw() + 
   scale_fill_brewer(labels = c("Able=2", "Able=8")) +
   labs(x = "", y = "Frequency", 
-       title = "Panel B. Allocator's belief about the seller (%-Corrupt)", 
+       title = "Panel B. Allocator's belief\n  about the seller (%-Corrupt)", 
        fill = "") +
   scale_x_discrete(drop=FALSE,labels=plot1b_labels)+
   theme(axis.text.x = element_text(angle = 45,vjust = 0.5))
@@ -69,10 +132,10 @@ plot1b <- ggplot(fig1b, aes(x = factor(perc_corrupt), y = freq, fill = factor(tr
 
 ##display 1a and 1b together
 
-gridExtra::grid.arrange(plot1a,plot1b,nrow=1)
+
 ```
 
-# Plot 2a - Plot 2b
+The second set of plots on the bottom row visualize the distribution of the experimentee behavior in the modified game. The same issue with zeroes-turned-ones is also apparent here. Beliefs and realities about the corruption of the other player, seem to display a difference between the versions of the game.
 
 ```{r plot2a2b, message = FALSE, echo = FALSE, warning=FALSE}
 
@@ -86,7 +149,7 @@ plot2a <- ggplot(fig2a, aes(x = factor(tokenstaken), y = freq, fill = factor(tre
   theme_bw() + 
   scale_fill_brewer(labels = c("Able=2", "Able=8")) +
   labs(x = "", y = "Frequency", 
-       title = "Panel A. Tokens taken by the allocator", 
+       title = "Panel A. Tokens taken \n by the allocator", 
        fill = "") +
   scale_x_discrete(drop=FALSE)
 
@@ -102,17 +165,19 @@ plot2b <- ggplot(fig2b, aes(x = factor(perc_corrupt), y = freq, fill = factor(tr
   theme_bw() + 
   scale_fill_brewer(labels = c("Able=2", "Able=8")) +
   labs(x = "", y = "Frequency", 
-       title = "Panel B. Allocator's belief about the seller (%-Corrupt)", 
+       title = "Panel B. Allocator's belief \n about the seller (%-Corrupt)", 
        fill = "") +
   scale_x_discrete(drop=FALSE,labels=plot1b_labels) +
   theme(axis.text.x = element_text(angle = 45,vjust = 0.5))
 
 
-gridExtra::grid.arrange(plot2a,plot2b,nrow=1)
+gridExtra::grid.arrange(plot1a,plot1b,plot2a,plot2b,nrow=2)
 
 ```
 
-# Table 2
+# Table 1
+
+Table 1 summarizes descriptive statistics of the sample, with sample standard deviations in brackets. This table is labeled Table 2 in the paper.
 ```{r,message = FALSE, echo = FALSE, warning=FALSE,results='asis'}
 tb2col1 <- basic_game %>% 
   summarise(across(everything(), .f = list(mean = mean, sd = sd), na.rm = TRUE)) %>%
@@ -175,13 +240,15 @@ tb2 <- tb2 %>% mutate(`Forced seller` = replace_na(`Forced seller`,""),
                       `Forced allocator` = replace_na(`Forced allocator`,"")
                       )
 colnames(tb2)[1] <- ""
-kableExtra::kable(tb2,format="latex",booktabs=T)  %>% 
+kableExtra::kable(tb2,format="latex",booktabs=T,caption="Descriptive Statistics")  %>% 
   add_header_above(header = c(" ","First subject pool","Second subject pool"=3)) %>% 
   kable_styling(font_size = 8)
 
 ```
 
-# Table 3a
+# Table 2-5
+
+The two tables that follow represent the differences between means across treatments in each version of the game. The results are almost identical barring some differences in standard errors of the variable Age. 
 
 ```{r,message = FALSE, echo = FALSE, warning=FALSE,results='asis'}
 
@@ -236,7 +303,7 @@ tb3a = tb3a[-7, ]
 
 
 
-kableExtra::kable(tb3a, format="latex",booktabs=T)  %>% 
+kableExtra::kable(tb3a, format="latex",booktabs=T,caption="Differences between sample means: Basic Game")  %>% 
   add_header_above(header = c(" ","Able=2"=2,"Able=8"=2)) %>% 
   add_header_above(header = c(" ","Panel A. Basic game"=5)) %>% 
   add_header_above(header = c(" ","First subject pool"=5))  %>%                 
@@ -244,7 +311,8 @@ kableExtra::kable(tb3a, format="latex",booktabs=T)  %>%
 
 ```
 
-# Table 3b
+
+Along with the next two, tables 2 through 5 constitute the A-B-C-D panels of Table 3 in the paper.
 
 ```{r, message = FALSE, echo = FALSE, warning=FALSE,results='asis'}
 
@@ -301,7 +369,7 @@ tb3b = tb3b[-7, ]
 
 
 #voila
-kableExtra::kable(tb3b, format="latex",booktabs=T)  %>% 
+kableExtra::kable(tb3b, format="latex",booktabs=T,caption="Differences between sample means: Modified Game")  %>% 
   add_header_above(header = c(" ","Able=2"=2,"Able=8"=2)) %>% 
   add_header_above(header = c(" ","Panel B. Modified game"=5)) %>% 
   add_header_above(header = c(" ","Second subject pool"=5))  %>%                 
@@ -407,14 +475,16 @@ tb3c <- tb3c %>% mutate(able2_sd  = sprintf("(%.2f)",able2_sd),
 
 
 #voila
-kableExtra::kable(tb3c, format="latex",booktabs=T)  %>% 
+kableExtra::kable(tb3c, format="latex",booktabs=T,caption="Differences between sample means: Forced Seller")  %>% 
   add_header_above(header = c(" ","Able=2"=2,"Able=8"=2," ","SellA"=2,"sellB"=2)) %>% 
   add_header_above(header = c(" ","Panel C. Modified game"=9)) %>% 
   add_header_above(header = c(" ","Second subject pool"=9))  %>%                 
   kable_styling(font_size = 8)
 ```
 
-# Table 4
+
+
+
 ```{r,message = FALSE, echo = FALSE, warning=FALSE,results='asis'}
 tb3d2 = subset(forced_allocator, tokenstaken == 2)  %>%
   summarise(across(everything(), .f = list(mean = mean, sd = sd), na.rm = TRUE)) %>%
@@ -470,7 +540,7 @@ tb3d = tb3d[-7, ]
 
 
 #voila
-kableExtra::kable(tb3d, format="latex",booktabs=T)  %>% 
+kableExtra::kable(tb3d, format="latex",booktabs=T,caption="Differences between sample means: Forced Allocator")  %>% 
   add_header_above(header = c(" ","Take 2"=2,"Take 8"=2)) %>% 
   add_header_above(header = c(" ","Panel D. Forced allocator"=5)) %>% 
   add_header_above(header = c(" ","Second subject pool"=5))  %>%                 
@@ -528,6 +598,11 @@ table4a <- table4a %>% bind_cols()
 table4b <- table4b %>% bind_cols()
 ```
 
+# Regression Tables
+
+The final two tables, Tables 6 and 7, summarize the treatment effects that are relevant to the research question. Each cell represents a coefficient and its standard error, each coming from a stand-alone regression run. In Table 6 you may find the regression results regarding the Basic Game, and results from the Modified game, in the final Table.
+
+
 ```{r,message = FALSE, echo = FALSE, warning=FALSE,results='asis'}
 
 table4a <- table4a[,-4]
@@ -543,7 +618,7 @@ table4a <- table4a %>% mutate(sd_A8 = sprintf("(%.2f)",sd_A8),
                               sd_A2 = sprintf("(%.2f)",sd_A2))
                         
 
-kableExtra::kable(table4a, format="latex",booktabs=T)  %>% 
+kableExtra::kable(table4a, format="latex",booktabs=T,caption="Regression Results: Basic Game")  %>% 
   add_header_above(header = c(" ","(1)"=2,"(2)"=2)) %>% 
   add_header_above(header = c(" ","Basic Game"=4)) %>% 
   kable_styling(font_size = 8)
@@ -565,7 +640,7 @@ table4b <- table4b %>% mutate(sd_A8 = sprintf("(%.2f)",sd_A8),
                               sd_A2 = sprintf("(%.2f)",sd_A2))
 
 
-kableExtra::kable(table4b, format="latex",booktabs=T)  %>% 
+kableExtra::kable(table4b, format="latex",booktabs=T, caption="Regression Results: Modified Game")  %>% 
   add_header_above(header = c(" ","(1)"=2,"(2)"=2)) %>% 
   add_header_above(header = c(" ","Modified Game"=4)) %>% 
   kable_styling(font_size = 8)

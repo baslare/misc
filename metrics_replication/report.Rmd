@@ -1,20 +1,88 @@
 ---
-title: "Report"
-author: "Efe Baslar, Ling Ki Wong"
+title: "How Antitrust Enforcement Can Spur Innovation: Bell Labs and the 1956 Consent Decree"
+
+subtitle: "Replication Report"
+author:
+  - "Efe Baslar"
+  - "Ling Ki Wong"
 date: '2022-02-26'
 output:
   pdf_document: default
   html_document:
     df_print: paged
+bibliography: bibliography.bib
+fontsize: 24pt
 ---
 
-# There's a heading!
-let us test the pdf knit
+# Summary of the paper
 
-text here
-text here
-text here
-text here
+In this paper, the authors empirically examined the effect of compulsory licensing as an antitrust remedy by looking into the causal effect compulsory licensing has on innovation. Specifically, the authors utilized the 1956 consent decree - one of the benchmark antitrust rulings in US history - against the Bell System. They analyzed both the direct effects the consent decree has on follow-on innovation, as well as the overall effects on US innovation. They also studied how the consent decree affects the subsequent innovation efforts of Bell, the owner of the patents targeted by the antitrust ruling. 
+
+## Background 
+
+The Bell System consisted of several key players: (1) American Telephone and Telegraph (AT&T), who was the dominant provider of telecommunications services in the US; (2) Western Electric, the manufacturing subsidiary of AT&T, from which AT&T and its operating companies purchased more than 90% of their telecommunications equipment; and (3) Bell Laboratories (Bell Labs), the research subsidiary of AT&T and Western Electric. All these companies together formed a vertically integrated chain known as the Bell System (Bell). Bell held patents on many key technologies in telecommunications as well as in many other fields. Around 70% of the patents protected inventions from Bell Labs.
+
+The US Government filed an antitrust lawsuit against Bell for market foreclosure^[Market foreclosure is a result of business conducts which aim at denying actual or potential competitors profitable access to a market. The most common forms include denied access to a supplier (_upstream foreclosure_) or to a downstream buyer (_downstream foreclosure_) [@stefanadis_downstream_1997]] in 1949. The complaint charged that Bell had been monopolizing the manufacture, distribution, and sale of telecommunication equipment via exclusionary practices, such as exclusive contracts and refusal to license patents. The 7-year-long lawsuit ended with a consent decree in January 1956, containing two remedies. First, Bell had to license all its patents issued prior to the decree royalty-free to any applicant, except for a few companies that already had cross-licensing agreements with Bell^[They are: the General Electric Company, Radio Corporation of America, and Westinghouse Electric Corporation.]. Besides, all subsequently published patents had to be licensed for reasonable royalties. This resulted in a total of 7,820 patents, or 1.3% of all unexpired US patents, freely available. Second, Bell was barred from conducting any business other than telecommunications.
+
+## Estimation Framework & Data
+
+To investigate the effects of the decree on follow-on innovation, the authors compared the number of follow-on innovations built on Bell patents after the consent decree with the number had the consent decree not been enacted. In their __main empirical specification__, follow-on innovations built on Bell patents were measured by patent citations, a very common practice in innovation studies. The counterfactual was constructed through exact matching, i.e. all other patents that are published in the same year, have the same total numbers of citations as the Bell patents in the 5 years before 1949 (corrected for self-citation), and are in the same US Patent Classification (USPC) technology class. Such construct controlled several factors that could interfere with the estimation results, for example, technology-specific citation trends and age of patents (younger patents were cited more often). The regression specification for the diff-in-diff analysis is as follows:
+
+\begin{centering}
+
+$Citations_{i,t}  = \beta_{1}Bell_i + \beta_{2}Post_i  + \beta_{3}Bell_iPost_i + \epsilon_{i,t}$
+
+\end{centering}
+where $Citations_{i,t}$ is the number of follow-on citations of other companies to patent $i$ in a year $t$ in the treatment period from 1956 until patent expiration. $Bell_i$ is a dummy with value “1” when a patent $i$ is a Bell patent. $Post_t$ indicates whether a year $t$ is in the treatment period. The interest is on $\beta_3$, which measures the increase in patent citation to Bell relative to the control group. 
+
+The __complimentary estimation specification__ again used the diff-in-diff framework. Instead of patent citation, the authors compared the change in the total number of patents in a USPC technology subclass that contains a compulsorily licensed Bell patent to the change in a subclass without such Bell patent, before and after the consent decree. The regression specification is as follows:
+
+\begin{centering}
+
+$Patents_{c,s,t} = \beta Treat_sI[1956-1970] + Year_{FE_t} + Class_{FE_t} + \epsilon_{c,s,t}$
+
+\end{centering}
+
+where $Patents_{c,s,t}$ is the number of non-Bell patents in class $c$, subclass $s$, and year $t$. $Treat_s$ is a dummy that takes up value “1” if there is at least one compulsorily licensed Bell-patent in subclass $s$. $I[1956-1970]$ is an indication function for the years. $\beta$ is the coefficient of interest, and it measures the number of patents in treated subclasses in excess to untreated subclasses. Technology class fixed effects and year fixed effects are controlled to account for differences in patenting rates across different technology classes, and the development of patenting activities in the US across all technology classes, respectively. 
+
+The primary dataset used is the patent data for the US from the Worldwide Patent Statistical Database (PATSTAT, 2016) of the European Patent Office. All compulsorily licensed Bell patents were identified by a cross-check with a complete list of relevant patent numbers published in the case hearing document in 1958. Another dataset provided by [Kerr (2008)]@kerr_ethnic_2008] was used to classify whether a patent is telecommunications-related (“1” if patents in a class has a probability higher than 15% of being used in the production process) and whether the patent belongs to a highly concentrated market (“1” if the eight-firm average market share is above 60%). 
+
+## Results & Conclusion
+
+Estimates in the main estimation specification shows that the consent decree increased follow-on innovation on average. The average numbers of citations of the Bell patents (weighted to adjust for the different number of control patents for each Bell patent) and that of the control patents were very close to each other from 1949 to 1955, but Bell patents started to receive relatively more citations than control patents from 1956 onward. Similarly, the average number of excess citations to Bell patents relative to control patents was zero up to 1955, and became statistically significantly different from zero after 1956. 
+    
+The authors then analyzed whether the consent decree had a boosting effect in markets close to the telecommunication industry and in markets unrelated to it. A strong negative relation between the closeness of the telecommunications industry and excess citation was found. This means that the majority of excess citations in fact came from patents in non-telecommunications related markets. Therefore, the consent decree is considered ineffective in stimulating innovation in the telecommunication industry, but effective in others. 
+    
+With the complementary estimation, the authors found that the total number of patents and the average difference in the total number of patents in treated and untreated subclasses within a class until 1955 were very similar. Since 1956, subclasses containing a free compulsorily licensed Bell patent showed a higher patenting rate than the control subclass, and such effects did not decrease over time. Breaking down the increase by technological classes, the authors again found that the increase was mainly driven by patents from industries unrelated to the production of telecommunication equipment. These findings highlight that the technological progress in the fields in which Bell continued to dominate is slower than other markets.
+
+
+# Challenges in Data
+
+Because the original data sources were not openly accessible (which in itself is already a big challenge for conducting empirical work), we obtained only the cleaned dataset. In other words, we were not involved in any exploratory data analysis, data cleaning nor feature engineering process. Therefore, we infer any potential challenges in data based on the data description in the paper. 
+
+First, the final datasets were results of joining different primary tables at multiple levels. For example, identifying compulsorily licensed Bell patents required an inner-join between a PATSTAT table and the patent number list in the hearing document; Classifying telecommunications-related patents involved combining a (potentially different) PATSTAT table with the Kerr (2008) dataset. To deal with merging different tables, a clear understanding in the definition of variables is necessary to identify which column(s) is(are) the unique identifier per row (e.g. patent number), and how the identifiers from different tables can be linked together. 
+
+The two estimation specifications show that feature engineering is required. As previously described, several dummy variables need to be constructed from the original data. On top of that, the dependent variables also need appropriate data aggregation. For instance, in the main specification, from the perspective of a focal patent, its link to follow-on citations is often a 1:m relationship. Without aggregation, the resulting table would contain a lot more observations, even after removing self-citations. As only the number of citations is needed, a simple citation count on all follow-on citations for each distinct focal patent should already serve the purpose. 
+    
+Restricting the sample to only relevant observations is another possible challenge in this paper. For example, the control group consists of only patents from the same patent class, published in the same year, and had the same numbers of citations as the Bell patents. Other examples include dropping patents that were published with strategic delay due to secrecy orders during World War II, or excluding patents held by companies that had cross-licensing agreement with Bell prior to the consent decree. Removing certain observations, however, comes with a potential problem that we would need to forego some additional insights. For example, Bell Labs had patents on some extraordinary inventions, which, under the exact matching approach, barely had any corresponding control patent. This led to dropping the unmatched Bell patents from the analysis. However, these innovation breakthroughs could have different magnitudes of effects on follow-on inventions. In this case, the authors are removing some “extreme values” which had actual impacts on the effect of the consent decree on innovation. As noted by the authors, estimation results should be interpreted as the average treatment effect, and as an imprecise lower bound of the effect of the consent decree.
+
+
+# Challenges in Inference
+
+The authors employed a diff-in-diff approach to examine the causal effects. Such interpretation rests on the parallel trend assumption, which suggests that, in this study, Bell patents would have received the same number of citations (or patenting rates in the complementary estimation) as the control patents did had the consent decree been absent. In other words, we should be able to remove any systematic differences in follow-on citations (patenting rates) between Bell and the control patents that are not due to the consent decree when we condition on the control variables. To address this problem, the authors estimated the two regressions with time-varying coefficients, and inspected the pre-trends visually. They found that up to the year of consent decree, numbers of citations (patenting rates) to Bell and control patents were the same, meaning that the parallel trend assumption holds. 
+
+Another concern with this empirical setup is that the effect of the consent decree might be overestimated if the antitrust authorities decided to license Bell patents royalty-free exactly because these patents have high potential for follow-on innovation. The authors argued that such confounding effects are unlikely. First, the consent decree did not contain any other remedies to restore competitions, it is therefore reasonable to assume that in the absence of the consent decree, Bell patents would continue to receive the same number of citations as the control patents. Besides, 57% of patents Bell held in other fields were also included in the consent decree not because they were blocking competitors but because they were associated with Bell. Therefore, the authors considered the confounding effects to be unlikely. 
+
+A third challenge is that the impact of the free compulsory licensing on follow-on citations might be driven by unobservable shocks that increase follow-on innovation to Bell patents and are correlated to the consent decree, i.e. there’s the problem of endogeneity. For example, exogenous technological progress might be happening during that period, and antitrust bodies pushed for free compulsory licensing because they expected the technological progress. To address this concern, the authors looked at companies that were less affected by the consent decree, and hypothesized that if the increase in follow-on innovation was driven by exogenous technological progress, these companies should react the same as companies benefiting from the consent decree. The authors analyzed the citation patterns of (1) companies that were excluded from the free compulsory licensing of Bell patents, (2) foreign companies who could license Bell’s patents but would receive no technical descriptions nor assistance from Bell, and (3) companies that already had licensing agreement with Bell. No significant effects of the consent decree were found on the citation patterns of these companies. Similar results were found when the checks were based on patent quality (measured by the dollar value, [@kogan_technological_2017]), or the extent of association between the inventors and Bell. Therefore, the authors considered it was unlikely that the impact of the consent decree was driven by unobservable shocks. 
+    
+Lastly, in the complementary identification method where the dependent variable is the number of patents, an increase in patent number after the consent decree could be caused by two effects: (1) access to the royalty-free compulsorily licensed Bell patents, and (2) access to subsequent Bell patents at reasonable royalty rates. The estimate should pick up both effects, and the framework used in the study is not sufficient to separate the effects from each other. Therefore, the estimation strategy only captures the overall effect of the consent decree. Nuanced Interpretation is required to understand the estimated coefficient on the patent class level. 
+
+
+
+# Replicated Tables
+
+We were able to replicate all the major tables in the paper barring a few minor discrepancies. Variance explained is consistently low across almost all the models and they were not reported in the paper. We also report the intercept values but these are not to be confused with the means of the dependent variables corresponding to each regression run that can be seen in the paper. However, we were not able to pinpoint actually where these values are coming from as even the stata code provided by the authors is unable to reproduce these values.
+
 ```{r setup, include=FALSE}
 
 require(reticulate)
@@ -39,9 +107,10 @@ with open("table_1.pickle","rb") as a:
 
 
 
-# Table 1
+## Table 1
 
-text here
+
+Table 1 gives us an overview of the descriptive statistics. There seems to be some discrepancy between number of average patent citations, this was also evident in the plots in the paper.
 ```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE,fig.cap="Summary Statistics"}
 require(tidyverse)
 require(stargazer)
@@ -52,11 +121,14 @@ table_1_df <- apply(table_1_df,MARGIN = 2, unname)
 rownames(table_1_df) <- c("Filing year","Publication year","# yrs. in patent protection after 1956","Total Cites","Citations by others","Self-citatons","Cts. by others b. 1949")
 colnames(table_1_df) <- paste0("(",colnames(table_1_df) %>% str_remove_all("[.]+"),")")
 
-kableExtra::kable(table_1_df %>% format(round(., 1), digits=1,scientific=FALSE),format="latex",booktabs=T)%>% add_header_above(c(" "," ","All","Tele","others"," ","All","Tele","Others")) %>% add_header_above(c(" ","All(40-55)","Baseline (40-48)"=3, "All(40-55)","Baseline (40-48)"=3)) %>% add_header_above(c(" ","Non-Bell System patents"=4,"Bell System patents"=4)) %>% kable_styling(font_size = 7)
+kableExtra::kable(table_1_df %>% format(round(., 1), digits=1,scientific=FALSE),format="latex",booktabs=T,caption="Summary Statistics")%>% add_header_above(c(" "," ","All","Tele","others"," ","All","Tele","Others")) %>% add_header_above(c(" ","All(40-55)","Baseline (40-48)"=3, "All(40-55)","Baseline (40-48)"=3)) %>% add_header_above(c(" ","Non-Bell System patents"=4,"Bell System patents"=4)) %>% kable_styling(font_size = 7)
 ```
-# Table 2
+## Table 2
 
-text here
+As mentioned above, as telecommunication related patents constitute a considerable portion of the Bell patents, it is therefore makes sense to focus on those patterns in the analysis. Apart from the 6th model, all models are almost identically replicated in our effort. Even though the dependent variable in that model did not undergo any transformations, the results are slightly off but qualitatively in the same direction. We were not able to identify the root cause here.
+
+The diff-in-diff estimation framework, on the other hand, is brought to life first by estimating Coarsened Exact Matching procedure, used to eliminate unmatched observations which followed by fitting a linear model with multiple group fixed effects.
+
 ```{r table2,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
 txt <- read_file("table_2_latex.txt")
 
@@ -64,22 +136,22 @@ txt <- txt %>% str_replace("\\\\centering\\\r\\\n ","\\\\centering\\\r\\\n \\\\s
 writeLines(txt)
 
 ```
-# Table 3
+## Table 3 and Table 4
 
-text here
+Tables 3 and 4 provide support to the main estimation results. 
 ```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
 txt2 <- read_file("table_3_latex.txt")
 
 txt2 <- txt2 %>% str_replace("\\\\centering\\\r\\\n ","\\\\centering\\\r\\\n \\\\scriptsize\\\r\\\n ")
 writeLines(txt2)
 ```
-# Table 4
 
-text here
+
+
 ```{r,results="asis",message = FALSE, echo = FALSE, warning=FALSE}
 source("watzinger_etal_table4.R")
 ```
 
 
 
-
+# References
