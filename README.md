@@ -32,7 +32,7 @@ replicating the tables from the following papers:
 https://www.aeaweb.org/articles?id=10.1257/aer.20141409
 https://pubs.aeaweb.org/doi/pdfplus/10.1257/pol.20190086
 
-##xgboost
+## xgboost
 a jupyter notebook for a project dealing with predicting customers' return decisions. The project features extensive exploratory data analysis, feature engineering, 
 xgboost as the main prediction tool and interpretable machine learning post-analysis.
 
