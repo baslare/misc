@@ -1,0 +1,105 @@
+
+--- Job nonogram.gms Start 10/09/17 23:27:38 WEX-VS8 23.5.1 x86/MS Windows        
+GAMS Rev 235  Copyright (C) 1987-2010 GAMS Development. All rights reserved
+Licensee: Gary Goldstein                                 G010614:2121CA-WIN
+          Decision Ware, Inc.                                        DC2807
+--- Starting compilation
+--- nonogram.gms(4) 2 Mb
+--- call =xls2gms r=rows!row i=nonogram.xls o=set1.inc
+--- nonogram.gms(5) 2 Mb
+--- .set1.inc(40) 3 Mb
+--- nonogram.gms(9) 3 Mb
+--- call =xls2gms r=columns!column i=nonogram.xls o=set2.inc
+--- nonogram.gms(10) 3 Mb
+--- .set2.inc(40) 3 Mb
+--- nonogram.gms(15) 3 Mb
+--- call =xls2gms r=shapes!shape i=nonogram.xls o=set3.inc
+--- nonogram.gms(16) 3 Mb
+--- .set3.inc(19) 3 Mb
+--- nonogram.gms(30) 3 Mb
+--- call =xls2gms r=rows!rowtable i=nonogram.xls o=table1.inc
+--- nonogram.gms(31) 3 Mb
+--- .table1.inc(41) 3 Mb
+--- nonogram.gms(38) 3 Mb
+--- call =xls2gms r=columns!columntable i=nonogram.xls o=table2.inc
+--- nonogram.gms(39) 3 Mb
+--- .table2.inc(41) 3 Mb
+--- nonogram.gms(149) 3 Mb
+--- Starting execution: elapsed 0:00:07.526
+--- nonogram.gms(323) 4 Mb
+--- Generating MIP model nonogram
+--- nonogram.gms(325) 11 Mb
+---   16,053 rows  10,001 columns  162,893 non-zeroes
+---   10,000 discrete-columns
+--- Executing CPLEX: elapsed 0:00:07.882
+
+IBM ILOG CPLEX   Jul  4, 2010 23.5.1 WIN 18414.18495 VS8 x86/MS Windows
+Cplex 12.2.0.0, GAMS Link 34 
+GAMS/Cplex licensed for continuous and discrete problems.
+
+Cplex MIP uses 1 of 4 parallel threads. Change default with option THREADS.
+Reading data...
+Starting Cplex...
+Tried aggregator 2 times.
+MIP Presolve eliminated 10054 rows and 5222 columns.
+MIP Presolve modified 17261 coefficients.
+Aggregator did 2203 substitutions.
+Reduced MIP has 3794 rows, 2576 columns, and 40691 nonzeros.
+Reduced MIP has 2576 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Probing fixed 1276 vars, tightened 0 bounds.
+Probing changed sense of 235 constraints.
+Probing time =    0.11 sec.
+Tried aggregator 5 times.
+MIP Presolve eliminated 3446 rows and 2303 columns.
+MIP Presolve modified 1985 coefficients.
+Aggregator did 50 substitutions.
+Reduced MIP has 288 rows, 223 columns, and 1118 nonzeros.
+Reduced MIP has 223 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time =    0.34 sec.
+Probing fixed 58 vars, tightened 0 bounds.
+Probing time =    0.00 sec.
+Clique table members: 703.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Tried aggregator 1 time.
+LP Presolve eliminated 288 rows and 223 columns.
+All rows and columns eliminated.
+Presolve time =    0.00 sec.
+Root relaxation solution time =    0.00 sec.
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer     Best Node    ItCnt     Gap
+
+*     0     0      integral     0      128.0000      128.0000        0    0.00%
+Elapsed real time =   0.34 sec. (tree size =  0.00 MB, solutions = 1)
+MIP status(101): integer optimal solution
+Fixing integer variables, and solving final LP...
+Tried aggregator 1 time.
+LP Presolve eliminated 16053 rows and 10001 columns.
+All rows and columns eliminated.
+Presolve time =    0.02 sec.
+Fixed MIP status(1): optimal
+
+Proven optimal solution.
+
+MIP Solution:          128.000000    (0 iterations, 0 nodes)
+Final Solve:           128.000000    (0 iterations)
+
+Best possible:         128.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- Restarting execution
+--- nonogram.gms(325) 0 Mb
+--- Reading solution for model nonogram
+--- nonogram.gms(325) 4 Mb
+--- Executing after solve: elapsed 0:00:08.614
+--- nonogram.gms(330) 4 Mb
+
+GDXXRW           Jul  4, 2010 23.5.1 WIN 18414.18495 VS8 x86/MS Windows       
+Input file : C:\Users\Packardbell\Documents\gamsdir\projdir\results.gdx
+Output file: C:\Users\Packardbell\Documents\gamsdir\projdir\nonogram.xls
+Total time = 1015 Ms
+*** Status: Normal completion
+--- Job nonogram.gms Stop 10/09/17 23:27:48 elapsed 0:00:09.701

@@ -1,0 +1,72 @@
+B 2 C o m p i l a t i o n
+B 348 Include File Summary
+B 380 Equation Listing    SOLVE nonogram Using MIP From line 325
+D 381 obj
+D 2459 rowcon
+D 3251 colcon
+D 3897 rowtotal
+D 4083 columntotal
+D 4269 rowstart
+D 4504 columnstart
+D 4739 rowsx
+D 5010 colsx
+D 5341 endrow
+D 5576 endcol
+D 5811 startuniquer
+D 6277 startuniquec
+D 6742 rendcon
+D 7558 cendcon
+D 8209 rendunique
+D 8796 cendunique
+D 9383 startnozoner
+D 9503 startnozonec
+D 9616 noendzoner
+D 9736 noendzonec
+D 9849 roworder
+D 11164 colorder
+B 11401 Column Listing      SOLVE nonogram Using MIP From line 325
+E 11402 x
+E 14979 r
+E 18689 c
+E 24969 er
+E 25473 ec
+E 26051 z
+B 26060 Model Statistics    SOLVE nonogram Using MIP From line 325
+B 26076 Solution Report     SOLVE nonogram Using MIP From line 325
+F 26111 obj
+F 26120 rowcon
+F 26197 colcon
+F 26260 rowtotal
+F 26286 columntotal
+F 26311 rowstart
+F 28596 columnstart
+F 30881 rowsx
+F 32198 colsx
+F 33221 endrow
+F 34538 endcol
+F 35562 startuniquer
+F 35967 startuniquec
+F 36372 rendcon
+F 36448 cendcon
+F 36510 rendunique
+F 36915 cendunique
+F 37320 startnozoner
+F 37361 startnozonec
+F 37398 noendzoner
+F 37439 noendzonec
+F 37476 roworder
+F 39881 colorder
+G 42281 x
+G 42686 r
+G 45091 c
+G 47496 er
+G 49901 ec
+G 52306 z
+B 52319 E x e c u t i o n
+I 52322 z
+I 52324 c
+I 52387 r
+I 52464 x
+I 52547 rowsx
+I 52553 er
+I 52630 ec
