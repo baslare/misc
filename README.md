@@ -7,6 +7,10 @@ Brief information on each of the sub-repositories found under this repository.
 
 scripts to scrape project information from the citizen science platform, zooniverse: https://www.zooniverse.org/
 
+## GAMS
+
+two simple GAMS solutions to mixed integer programming problems, 1) a Nonogram puzzle 2) Home-Away match scheduling.
+
 ## admixture analysis
 
 a personal script to analyze population genetics (also my own dna data), using the scientific admixture software: https://uqrmaie1.github.io/admixtools/index.html
@@ -18,6 +22,11 @@ a now defunct script that used to be able to scrape airbnb data very well, not s
 ## paper replication: a script to replicate (a part of) the wild bootstrap procedure for iv regression, davidson-mackinnon (2010)
 
 https://www.tandfonline.com/doi/abs/10.1198/jbes.2009.07221
+
+## EKAP
+
+a fairly robust web-scraping script that collects all the tender data in 
+https://ekap.kik.gov.tr/EKAP/Ortak/IhaleArama/index.html
 
 ## paper replication: exploration and exploitation, March (1991)
 
